@@ -6,12 +6,13 @@
 // Feel free to declare any helper functions or global variables
 void printPuzzle(char **arr);
 void searchPuzzle(char **arr, char *word);
+int sizeOfWord(char* word);
 // void fuck(char **arr, char* word, int i, int j, int letIdx, int wordSize) {
     
 // }
 
 int bSize;
-// int wordSize;
+int wordSize;
 
 // Main function, DO NOT MODIFY
 int main(int argc, char **argv)
@@ -53,8 +54,9 @@ int main(int argc, char **argv)
 
     printf("Enter the word to search: ");
     scanf("%s", word);
-   // wordSize = sizeof(word);
-   // printf("Size of Word: %d\n", wordSize);
+
+    wordSize = sizeOfWord(word);
+    printf("Size of Word: %d\n", wordSize);
 
     // Print out original puzzle grid
     printf("\nPrinting puzzle before search:\n");
@@ -72,6 +74,16 @@ int main(int argc, char **argv)
     free(block);
     free(word);
     return 0;
+}
+
+int sizeOfWord(char *word) {
+    int i = 0;
+    int size = 0;
+    while (*(word + i) != '\0') {
+        size++;
+        i++;
+    }
+    return size;
 }
 
 void printPuzzle(char **arr)
