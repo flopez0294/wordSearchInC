@@ -117,7 +117,3 @@ void searchPuzzle(char **arr, char *word)
 }
 
 
-int Test(int Max){
-    Max = 9;
-    return Max;
-}
