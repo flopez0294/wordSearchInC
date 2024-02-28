@@ -1,15 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 
 // Declarations of the two functions you will implement
 // Feel free to declare any helper functions or global variables
 void printPuzzle(char **arr);
 void searchPuzzle(char **arr, char *word);
 int sizeOfWord(char* word);
-// void fuck(char **arr, char* word, int i, int j, int letIdx, int wordSize) {
-    
-// }
+bool checkAround(char **arr, char* word, int i, int j, int letIdx, int wordSize);
 
 int bSize;
 int wordSize;
@@ -103,6 +102,11 @@ void printPuzzle(char **arr)
     }
 }
 
+bool checkAround(char **arr, char* word, int i, int j, int letIdx, int wordSize) {
+    // recursive function
+    return false;
+}
+
 void searchPuzzle(char **arr, char *word)
 {
     // This function checks if arr contains the search word. If the
@@ -112,6 +116,7 @@ void searchPuzzle(char **arr, char *word)
     // Your implementation here...
     int wordSize = sizeof(word);
     int x;
+    // make word capitalized
     for (x = 0; x < wordSize; x++)
     {
         if ((int)*(word + x) >= 'a' && (int)*(word + x) <= 'z') {
@@ -120,13 +125,16 @@ void searchPuzzle(char **arr, char *word)
     }
 
     // make double for loop to inteate throuhgh array then make recursice function to get around the area.
+    bool flag = false;
     int i, j;
     for (i = 0; i < bSize; i++) {
         for (j = 0; j < bSize; j++) {
-
+            // flag = checkAround();
+            if (flag) break;
         }
+        if (flag) break;
     }
-
+    // print out solution if any
 }
 
 
