@@ -129,9 +129,6 @@ void searchPuzzle(char **arr, char *word)
 
 }
 
-    void DoesNothing(int nothing){
-        int nothing;
-    }
 
 
 
