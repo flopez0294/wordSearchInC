@@ -8,7 +8,7 @@
 void printPuzzle(char **arr);
 void searchPuzzle(char **arr, char *word);
 int sizeOfWord(char* word);
-bool checkAround(char **arr, char* word, int i, int j, int letIdx, int wordSize);
+bool checkAround(char **arr, char* word, int i, int j, int letIdx);
 
 int bSize;
 int wordSize;
@@ -102,8 +102,36 @@ void printPuzzle(char **arr)
     }
 }
 
-bool checkAround(char **arr, char* word, int i, int j, int letIdx, int wordSize) {
+bool checkAround(char **arr, char* word, int i, int j, int letIdx) {
     // recursive function
+    if (*(*(arr + i) + j) == *(word + letIdx)){
+        if ((word + letIdx) == (word + wordSize - 1)) return true;
+        if (i - 1 >= 0 &&  j - 1 >= 0) {
+            return checkAround(arr, word, i - 1, j - 1, letIdx + 1);
+        }
+        if (i + 1 <= bSize - 1 && j + 1 <= bSize) {
+            return checkAround(arr, word, i + 1, i + 1, letIdx + 1);
+        }
+        if (i + 1 <= bSize -1 && j <= bSize - 1) {
+            return checkAround(arr, word, i + 1, j, letIdx + 1);
+        }
+        if (i <= bSize -1 && j + 1 <= bSize) {
+            return checkAround(arr, word, i, j + 1, letIdx + 1);
+        }
+        if (i - 1 >= 0 && j <= bSize - 1) {
+            return checkAround(arr, word, i + 1, j, letIdx + 1);
+        }
+        if (i <= bSize -1 && j - 1 >= 0) {
+            return checkAround(arr, word, i, j + 1, letIdx + 1);
+        }
+        if (i + 1 <= bSize - 1 && j - 1 >= 0) {
+            return checkAround(arr, word, i + 1, j - 1, letIdx + 1);
+        }
+        if (i - 1 >= 0 && j + 1 <= bSize - 1) {
+            return checkAround(arr, word, i - 1, j + 1, letIdx + 1);
+        }
+    }
+    
     return false;
 }
 
@@ -114,7 +142,6 @@ void searchPuzzle(char **arr, char *word)
     // as shown in the sample runs. If not found, it will print a
     // different message as shown in the sample runs.
     // Your implementation here...
-    int wordSize = sizeof(word);
     int x;
     // make word capitalized
     for (x = 0; x < wordSize; x++)
@@ -129,11 +156,12 @@ void searchPuzzle(char **arr, char *word)
     int i, j;
     for (i = 0; i < bSize; i++) {
         for (j = 0; j < bSize; j++) {
-            // flag = checkAround();
+            flag = checkAround(arr, word, i, j, 0);
             if (flag) break;
         }
         if (flag) break;
     }
+    printf("%d\n", flag);
     // print out solution if any
 }
 

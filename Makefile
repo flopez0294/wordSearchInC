@@ -1,7 +1,7 @@
 CC = gcc
 
 all:
-	$(CC) -o app wordsearch.c
+	$(CC) -o app -g wordsearch.c
 
 clean:
 	rm -f app
