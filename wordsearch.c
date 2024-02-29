@@ -134,7 +134,7 @@ bool checkAround(char **arr, char* word, int i, int j, int letIdx) {
             }
         }
         if (i - 1 >= 0 && j <= bSize - 1) {
-            temp = checkAround(arr, word, i + 1, j, letIdx + 1);
+            temp = checkAround(arr, word, i - 1, j, letIdx + 1);
             if (temp) {
                 return true;
             }
