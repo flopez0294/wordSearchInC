@@ -104,6 +104,7 @@ void printPuzzle(char **arr)
 
 bool checkAround(char **arr, char* word, int i, int j, int letIdx) {
     // recursive function
+    // hi
     if (*(*(arr + i) + j) == *(word + letIdx)){
         if ((word + letIdx) == (word + wordSize - 1)) return true;
         if (i - 1 >= 0 &&  j - 1 >= 0) {
