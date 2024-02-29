@@ -115,31 +115,25 @@ bool checkAround(char **arr, char* word, int i, int j, int letIdx) {
                 return true;
             }
         }
-        if (i + 1 <= bSize - 1 && j + 1 <= bSize) {
-            temp = checkAround(arr, word, i + 1, j + 1, letIdx + 1);
-            if (temp) {
-                return true;
-            }
-        }
-        if (i + 1 <= bSize -1 && j <= bSize - 1) {
-            temp = checkAround(arr, word, i + 1, j, letIdx + 1);
-            if (temp) {
-                return true;
-            }
-        }
-        if (i <= bSize -1 && j + 1 <= bSize) {
-            temp = checkAround(arr, word, i, j + 1, letIdx + 1);
-            if (temp) {
-                return true;
-            }
-        }
         if (i - 1 >= 0 && j <= bSize - 1) {
             temp = checkAround(arr, word, i - 1, j, letIdx + 1);
             if (temp) {
                 return true;
             }
         }
-        if (i <= bSize -1 && j - 1 >= 0) {
+        if (i - 1 >= 0 && j + 1 <= bSize - 1) {
+            temp = checkAround(arr, word, i - 1, j + 1, letIdx + 1);
+            if (temp) {
+                return true;
+            }
+        }
+        if (i <= bSize - 1 && j - 1 >= 0) {
+            temp = checkAround(arr, word, i, j + 1, letIdx + 1);
+            if (temp) {
+                return true;
+            }
+        }
+        if (i <= bSize -1 && j + 1 <= bSize) {
             temp = checkAround(arr, word, i, j + 1, letIdx + 1);
             if (temp) {
                 return true;
@@ -151,8 +145,14 @@ bool checkAround(char **arr, char* word, int i, int j, int letIdx) {
                 return true;
             }
         }
-        if (i - 1 >= 0 && j + 1 <= bSize - 1) {
-            temp = checkAround(arr, word, i - 1, j + 1, letIdx + 1);
+        if (i + 1 <= bSize -1 && j <= bSize - 1) {
+            temp = checkAround(arr, word, i + 1, j, letIdx + 1);
+            if (temp) {
+                return true;
+            }
+        }
+        if (i + 1 <= bSize - 1 && j + 1 <= bSize) {
+            temp = checkAround(arr, word, i + 1, j + 1, letIdx + 1);
             if (temp) {
                 return true;
             }
