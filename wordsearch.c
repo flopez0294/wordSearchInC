@@ -105,32 +105,57 @@ void printPuzzle(char **arr)
 bool checkAround(char **arr, char* word, int i, int j, int letIdx) {
     // recursive function
     if (*(*(arr + i) + j) == *(word + letIdx)){
+        bool temp = false;
         if ((word + letIdx) == (word + wordSize - 1)) {
             return true;
         }
         if (i - 1 >= 0 &&  j - 1 >= 0) {
-            return checkAround(arr, word, i - 1, j - 1, letIdx + 1);
+            temp = checkAround(arr, word, i - 1, j - 1, letIdx + 1);
+            if (temp) {
+                return true;
+            }
         }
         if (i + 1 <= bSize - 1 && j + 1 <= bSize) {
-            return checkAround(arr, word, i + 1, i + 1, letIdx + 1);
+            temp = checkAround(arr, word, i + 1, j + 1, letIdx + 1);
+            if (temp) {
+                return true;
+            }
         }
         if (i + 1 <= bSize -1 && j <= bSize - 1) {
-            return checkAround(arr, word, i + 1, j, letIdx + 1);
+            temp = checkAround(arr, word, i + 1, j, letIdx + 1);
+            if (temp) {
+                return true;
+            }
         }
         if (i <= bSize -1 && j + 1 <= bSize) {
-            return checkAround(arr, word, i, j + 1, letIdx + 1);
+            temp = checkAround(arr, word, i, j + 1, letIdx + 1);
+            if (temp) {
+                return true;
+            }
         }
         if (i - 1 >= 0 && j <= bSize - 1) {
-            return checkAround(arr, word, i + 1, j, letIdx + 1);
+            temp = checkAround(arr, word, i + 1, j, letIdx + 1);
+            if (temp) {
+                return true;
+            }
         }
         if (i <= bSize -1 && j - 1 >= 0) {
-            return checkAround(arr, word, i, j + 1, letIdx + 1);
+            temp = checkAround(arr, word, i, j + 1, letIdx + 1);
+            if (temp) {
+                return true;
+            }
         }
         if (i + 1 <= bSize - 1 && j - 1 >= 0) {
-            return checkAround(arr, word, i + 1, j - 1, letIdx + 1);
+            temp = checkAround(arr, word, i + 1, j - 1, letIdx + 1);
+            if (temp) {
+                return true;
+            }
         }
         if (i - 1 >= 0 && j + 1 <= bSize - 1) {
-            return checkAround(arr, word, i - 1, j + 1, letIdx + 1);
+            temp = checkAround(arr, word, i - 1, j + 1, letIdx + 1);
+            if (temp) {
+                return true;
+            }
         }
     }
     
