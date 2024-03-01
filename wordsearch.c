@@ -12,6 +12,7 @@ bool checkAround(char **arr, char* word, int i, int j, int letIdx);
 
 int bSize;
 int wordSize;
+int **locationIdx;
 
 // Main function, DO NOT MODIFY
 int main(int argc, char **argv)
@@ -112,48 +113,136 @@ bool checkAround(char **arr, char* word, int i, int j, int letIdx) {
         if (i - 1 >= 0 &&  j - 1 >= 0) {
             temp = checkAround(arr, word, i - 1, j - 1, letIdx + 1);
             if (temp) {
+                if (*(*(locationIdx + i) + j) != 0){
+                    int temp = *(*(locationIdx+i)+j)*10 + letIdx + 1;
+                    int num = 0;
+                    while(temp % 10 != 0) {
+                        num = (num*10) + (temp % 10);
+                        temp /= 10;
+                    }
+                    *(*(locationIdx+i)+j) = num;
+                } else {
+                    *(*(locationIdx+i)+j) = letIdx + 1;
+                }
                 return true;
             }
         }
         if (i - 1 >= 0 && j <= bSize - 1) {
             temp = checkAround(arr, word, i - 1, j, letIdx + 1);
             if (temp) {
+                if (*(*(locationIdx + i) + j) != 0){
+                    int temp = *(*(locationIdx+i)+j)*10 + letIdx + 1;
+                    int num = 0;
+                    while(temp % 10 != 0) {
+                        num = (num*10) + (temp % 10);
+                        temp /= 10;
+                    }
+                    *(*(locationIdx+i)+j) = num;
+                } else {
+                    *(*(locationIdx+i)+j) = letIdx + 1;
+                }
                 return true;
             }
         }
         if (i - 1 >= 0 && j + 1 <= bSize - 1) {
             temp = checkAround(arr, word, i - 1, j + 1, letIdx + 1);
             if (temp) {
+                if (*(*(locationIdx + i) + j) != 0){
+                    int temp = *(*(locationIdx+i)+j)*10 + letIdx + 1;
+                    int num = 0;
+                    while(temp % 10 != 0) {
+                        num = (num*10) + (temp % 10);
+                        temp /= 10;
+                    }
+                    *(*(locationIdx+i)+j) = num;
+                } else {
+                    *(*(locationIdx+i)+j) = letIdx + 1;
+                }
                 return true;
             }
         }
         if (i <= bSize - 1 && j - 1 >= 0) {
             temp = checkAround(arr, word, i, j + 1, letIdx + 1);
             if (temp) {
+                if (*(*(locationIdx + i) + j) != 0){
+                    int temp = *(*(locationIdx+i)+j)*10 + letIdx + 1;
+                    int num = 0;
+                    while(temp % 10 != 0) {
+                        num = (num*10) + (temp % 10);
+                        temp /= 10;
+                    }
+                    *(*(locationIdx+i)+j) = num;
+                } else {
+                    *(*(locationIdx+i)+j) = letIdx + 1;
+                }
                 return true;
             }
         }
         if (i <= bSize -1 && j + 1 <= bSize) {
             temp = checkAround(arr, word, i, j + 1, letIdx + 1);
             if (temp) {
+                if (*(*(locationIdx + i) + j) != 0){
+                    int temp = *(*(locationIdx+i)+j)*10 + letIdx + 1;
+                    int num = 0;
+                    while(temp % 10 != 0) {
+                        num = (num*10) + (temp % 10);
+                        temp /= 10;
+                    }
+                    *(*(locationIdx+i)+j) = num;
+                } else {
+                    *(*(locationIdx+i)+j) = letIdx + 1;
+                }
                 return true;
             }
         }
         if (i + 1 <= bSize - 1 && j - 1 >= 0) {
             temp = checkAround(arr, word, i + 1, j - 1, letIdx + 1);
             if (temp) {
+                if (*(*(locationIdx + i) + j) != 0){
+                    int temp = *(*(locationIdx+i)+j)*10 + letIdx + 1;
+                    int num = 0;
+                    while(temp % 10 != 0) {
+                        num = (num*10) + (temp % 10);
+                        temp /= 10;
+                    }
+                    *(*(locationIdx+i)+j) = num;
+                } else {
+                    *(*(locationIdx+i)+j) = letIdx + 1;
+                }
                 return true;
             }
         }
         if (i + 1 <= bSize -1 && j <= bSize - 1) {
             temp = checkAround(arr, word, i + 1, j, letIdx + 1);
             if (temp) {
+                if (*(*(locationIdx + i) + j) != 0){
+                    int temp = *(*(locationIdx+i)+j)*10 + letIdx + 1;
+                    int num = 0;
+                    while(temp % 10 != 0) {
+                        num = (num*10) + (temp % 10);
+                        temp /= 10;
+                    }
+                    *(*(locationIdx+i)+j) = num;
+                } else {
+                    *(*(locationIdx+i)+j) = letIdx + 1;
+                }
                 return true;
             }
         }
         if (i + 1 <= bSize - 1 && j + 1 <= bSize) {
             temp = checkAround(arr, word, i + 1, j + 1, letIdx + 1);
             if (temp) {
+                if (*(*(locationIdx + i) + j) != 0){
+                    int temp = *(*(locationIdx+i)+j)*10 + letIdx + 1;
+                    int num = 0;
+                    while(temp % 10 != 0) {
+                        num = (num*10) + (temp % 10);
+                        temp /= 10;
+                    }
+                    *(*(locationIdx+i)+j) = num;
+                } else {
+                    *(*(locationIdx+i)+j) = letIdx + 1;
+                }
                 return true;
             }
         }
@@ -181,6 +270,7 @@ void searchPuzzle(char **arr, char *word)
     // make double for loop to inteate throuhgh array then make recursice function to get around the area.
     bool flag = false;
     int i, j;
+    locationIdx = 0; 
     for (i = 0; i < bSize; i++) {
         for (j = 0; j < bSize; j++) {
             flag = checkAround(arr, word, i, j, 0);
