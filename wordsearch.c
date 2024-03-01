@@ -108,13 +108,7 @@ void appendToLocationIdx(int i, int j, int letIdx) {
     if (*(*(locationIdx + i) + j) == 0){
         *(*(locationIdx+i)+j) = letIdx + 1;
     } else {
-        int x = *(*(locationIdx+i)+j)*10 + letIdx + 1;
-        int num = 0;
-        while(x > 0) {
-            num = (num*10) + (x % 10);
-            x /= 10;
-        }
-        *(*(locationIdx+i)+j) = num;
+        *(*(locationIdx+i)+j) = *(*(locationIdx+i)+j)*10 + letIdx + 1;
     }
 }
 
@@ -123,6 +117,7 @@ bool checkAround(char **arr, char* word, int i, int j, int letIdx) {
     if (*(*(arr + i) + j) == *(word + letIdx)){
         bool temp = false;
         if ((word + letIdx) == (word + wordSize - 1)) {
+            appendToLocationIdx(i, j, letIdx);
             return true;
         }
         if (i - 1 >= 0 &&  j - 1 >= 0) {
@@ -147,7 +142,7 @@ bool checkAround(char **arr, char* word, int i, int j, int letIdx) {
             }
         }
         if (i <= bSize - 1 && j - 1 >= 0) {
-            temp = checkAround(arr, word, i, j + 1, letIdx + 1);
+            temp = checkAround(arr, word, i, j - 1, letIdx + 1);
             if (temp) {
                 appendToLocationIdx(i, j, letIdx);
                 return true;
@@ -214,7 +209,6 @@ void searchPuzzle(char **arr, char *word)
     // make double for loop to inteate throuhgh array then make recursice function to get around the area.
     bool flag = false;
     int i, j;
-    locationIdx = 0; 
     for (i = 0; i < bSize; i++) {
         for (j = 0; j < bSize; j++) {
             flag = checkAround(arr, word, i, j, 0);
@@ -222,17 +216,19 @@ void searchPuzzle(char **arr, char *word)
         }
         if (flag) break;
     }
-    printf("%d\n", flag);
     // print out solution if any
     if (flag) {
+        printf("Word found\n");
         for (i = 0; i < bSize; i++)
         {
             for (j = 0; j < bSize; j++)
             {
-                printf("%d ", *(*(locationIdx + i) + j));
+                printf("%d\t", *(*(locationIdx + i) + j));
             }
             printf("\n");
         }
+    } else {
+        printf("Word not found!\n");
     }
 
     for(i = 0; i < bSize; i++) {
