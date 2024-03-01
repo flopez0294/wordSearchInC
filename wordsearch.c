@@ -9,6 +9,7 @@ void printPuzzle(char **arr);
 void searchPuzzle(char **arr, char *word);
 int sizeOfWord(char* word);
 bool checkAround(char **arr, char* word, int i, int j, int letIdx);
+void appendToLocationIdx(int i, int j, int letIdx);
 
 int bSize;
 int wordSize;
@@ -103,6 +104,20 @@ void printPuzzle(char **arr)
     }
 }
 
+void appendToLocationIdx(int i, int j, int letIdx) {
+    if (*(*(locationIdx + i) + j) == 0){
+        *(*(locationIdx+i)+j) = letIdx + 1;
+    } else {
+        int x = *(*(locationIdx+i)+j)*10 + letIdx + 1;
+        int num = 0;
+        while(x > 0) {
+            num = (num*10) + (x % 10);
+            x /= 10;
+        }
+        *(*(locationIdx+i)+j) = num;
+    }
+}
+
 bool checkAround(char **arr, char* word, int i, int j, int letIdx) {
     // recursive function
     if (*(*(arr + i) + j) == *(word + letIdx)){
@@ -113,136 +128,56 @@ bool checkAround(char **arr, char* word, int i, int j, int letIdx) {
         if (i - 1 >= 0 &&  j - 1 >= 0) {
             temp = checkAround(arr, word, i - 1, j - 1, letIdx + 1);
             if (temp) {
-                if (*(*(locationIdx + i) + j) != 0){
-                    int temp = *(*(locationIdx+i)+j)*10 + letIdx + 1;
-                    int num = 0;
-                    while(temp % 10 != 0) {
-                        num = (num*10) + (temp % 10);
-                        temp /= 10;
-                    }
-                    *(*(locationIdx+i)+j) = num;
-                } else {
-                    *(*(locationIdx+i)+j) = letIdx + 1;
-                }
+                appendToLocationIdx(i, j, letIdx);
                 return true;
             }
         }
         if (i - 1 >= 0 && j <= bSize - 1) {
             temp = checkAround(arr, word, i - 1, j, letIdx + 1);
             if (temp) {
-                if (*(*(locationIdx + i) + j) != 0){
-                    int temp = *(*(locationIdx+i)+j)*10 + letIdx + 1;
-                    int num = 0;
-                    while(temp % 10 != 0) {
-                        num = (num*10) + (temp % 10);
-                        temp /= 10;
-                    }
-                    *(*(locationIdx+i)+j) = num;
-                } else {
-                    *(*(locationIdx+i)+j) = letIdx + 1;
-                }
+                appendToLocationIdx(i, j, letIdx);
                 return true;
             }
         }
         if (i - 1 >= 0 && j + 1 <= bSize - 1) {
             temp = checkAround(arr, word, i - 1, j + 1, letIdx + 1);
             if (temp) {
-                if (*(*(locationIdx + i) + j) != 0){
-                    int temp = *(*(locationIdx+i)+j)*10 + letIdx + 1;
-                    int num = 0;
-                    while(temp % 10 != 0) {
-                        num = (num*10) + (temp % 10);
-                        temp /= 10;
-                    }
-                    *(*(locationIdx+i)+j) = num;
-                } else {
-                    *(*(locationIdx+i)+j) = letIdx + 1;
-                }
+                appendToLocationIdx(i, j, letIdx);
                 return true;
             }
         }
         if (i <= bSize - 1 && j - 1 >= 0) {
             temp = checkAround(arr, word, i, j + 1, letIdx + 1);
             if (temp) {
-                if (*(*(locationIdx + i) + j) != 0){
-                    int temp = *(*(locationIdx+i)+j)*10 + letIdx + 1;
-                    int num = 0;
-                    while(temp % 10 != 0) {
-                        num = (num*10) + (temp % 10);
-                        temp /= 10;
-                    }
-                    *(*(locationIdx+i)+j) = num;
-                } else {
-                    *(*(locationIdx+i)+j) = letIdx + 1;
-                }
+                appendToLocationIdx(i, j, letIdx);
                 return true;
             }
         }
         if (i <= bSize -1 && j + 1 <= bSize) {
             temp = checkAround(arr, word, i, j + 1, letIdx + 1);
             if (temp) {
-                if (*(*(locationIdx + i) + j) != 0){
-                    int temp = *(*(locationIdx+i)+j)*10 + letIdx + 1;
-                    int num = 0;
-                    while(temp % 10 != 0) {
-                        num = (num*10) + (temp % 10);
-                        temp /= 10;
-                    }
-                    *(*(locationIdx+i)+j) = num;
-                } else {
-                    *(*(locationIdx+i)+j) = letIdx + 1;
-                }
+                appendToLocationIdx(i, j, letIdx);
                 return true;
             }
         }
         if (i + 1 <= bSize - 1 && j - 1 >= 0) {
             temp = checkAround(arr, word, i + 1, j - 1, letIdx + 1);
             if (temp) {
-                if (*(*(locationIdx + i) + j) != 0){
-                    int temp = *(*(locationIdx+i)+j)*10 + letIdx + 1;
-                    int num = 0;
-                    while(temp % 10 != 0) {
-                        num = (num*10) + (temp % 10);
-                        temp /= 10;
-                    }
-                    *(*(locationIdx+i)+j) = num;
-                } else {
-                    *(*(locationIdx+i)+j) = letIdx + 1;
-                }
+                appendToLocationIdx(i, j, letIdx);
                 return true;
             }
         }
         if (i + 1 <= bSize -1 && j <= bSize - 1) {
             temp = checkAround(arr, word, i + 1, j, letIdx + 1);
             if (temp) {
-                if (*(*(locationIdx + i) + j) != 0){
-                    int temp = *(*(locationIdx+i)+j)*10 + letIdx + 1;
-                    int num = 0;
-                    while(temp % 10 != 0) {
-                        num = (num*10) + (temp % 10);
-                        temp /= 10;
-                    }
-                    *(*(locationIdx+i)+j) = num;
-                } else {
-                    *(*(locationIdx+i)+j) = letIdx + 1;
-                }
+                appendToLocationIdx(i, j, letIdx);
                 return true;
             }
         }
         if (i + 1 <= bSize - 1 && j + 1 <= bSize) {
             temp = checkAround(arr, word, i + 1, j + 1, letIdx + 1);
             if (temp) {
-                if (*(*(locationIdx + i) + j) != 0){
-                    int temp = *(*(locationIdx+i)+j)*10 + letIdx + 1;
-                    int num = 0;
-                    while(temp % 10 != 0) {
-                        num = (num*10) + (temp % 10);
-                        temp /= 10;
-                    }
-                    *(*(locationIdx+i)+j) = num;
-                } else {
-                    *(*(locationIdx+i)+j) = letIdx + 1;
-                }
+                appendToLocationIdx(i, j, letIdx);
                 return true;
             }
         }
@@ -258,12 +193,21 @@ void searchPuzzle(char **arr, char *word)
     // as shown in the sample runs. If not found, it will print a
     // different message as shown in the sample runs.
     // Your implementation here...
-    int x;
+    int x, y;
     // make word capitalized
     for (x = 0; x < wordSize; x++)
     {
         if ((int)*(word + x) >= 'a' && (int)*(word + x) <= 'z') {
             *(word + x) = ((int)*(word + x) - 32);
+        }
+    }
+
+    locationIdx = (int **)malloc(bSize * sizeof(int *));
+
+    for (x = 0; x < bSize; x++) {
+        *(locationIdx + x) = (int *)malloc(bSize * sizeof(int *));
+        for(y = 0; y < bSize; y++) {
+            *(*(locationIdx + x) + y) = 0;
         }
     }
 
@@ -280,6 +224,21 @@ void searchPuzzle(char **arr, char *word)
     }
     printf("%d\n", flag);
     // print out solution if any
+    if (flag) {
+        for (i = 0; i < bSize; i++)
+        {
+            for (j = 0; j < bSize; j++)
+            {
+                printf("%d ", *(*(locationIdx + i) + j));
+            }
+            printf("\n");
+        }
+    }
+
+    for(i = 0; i < bSize; i++) {
+        free(*(locationIdx + i));
+    }
+    free(locationIdx);
 }
 
 
