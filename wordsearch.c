@@ -108,7 +108,13 @@ void appendToLocationIdx(int i, int j, int letIdx) {
     if (*(*(locationIdx + i) + j) == 0){
         *(*(locationIdx+i)+j) = letIdx + 1;
     } else {
-        *(*(locationIdx+i)+j) = *(*(locationIdx+i)+j)*10 + letIdx + 1;
+        int temp = (*(*(locationIdx + i) + j) * 10) + letIdx + 1;
+        int num = 0;
+        while (temp > 0) {
+            num = (num * 10) + (temp % 10);
+            temp /= 10;
+        }
+        *(*(locationIdx + i) + j) = num;
     }
 }
 
