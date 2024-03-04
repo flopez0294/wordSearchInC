@@ -7,7 +7,6 @@
 // Feel free to declare any helper functions or global variables
 void printPuzzle(char **arr);
 void searchPuzzle(char **arr, char *word);
-int sizeOfWord(char* word);
 bool checkAround(char **arr, char* word, int i, int j, int letIdx);
 void appendToLocationIdx(int i, int j, int letIdx);
 
@@ -55,8 +54,7 @@ int main(int argc, char **argv)
 
     printf("Enter the word to search: ");
     scanf("%s", word);
-
-    wordSize = sizeOfWord(word);
+    wordSize = strlen(word);
     printf("Size of Word: %d\n", wordSize);
 
     // Print out original puzzle grid
@@ -77,15 +75,6 @@ int main(int argc, char **argv)
     return 0;
 }
 
-int sizeOfWord(char *word) {
-    int i = 0;
-    int size = 0;
-    while (*(word + i) != '\0') {
-        size++;
-        i++;
-    }
-    return size;
-}
 
 void printPuzzle(char **arr)
 {
