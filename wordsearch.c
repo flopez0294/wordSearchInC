@@ -55,7 +55,6 @@ int main(int argc, char **argv)
     printf("Enter the word to search: ");
     scanf("%s", word);
     wordSize = strlen(word);
-    printf("Size of Word: %d\n", wordSize);
 
     // Print out original puzzle grid
     printf("\nPrinting puzzle before search:\n");
