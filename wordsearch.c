@@ -1,18 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 
 // Declarations of the two functions you will implement
 // Feel free to declare any helper functions or global variables
 void printPuzzle(char **arr);
 void searchPuzzle(char **arr, char *word);
-int sizeOfWord(char* word);
-// void fuck(char **arr, char* word, int i, int j, int letIdx, int wordSize) {
-    
-// }
+bool checkAround(char **arr, char* word, int i, int j, int letIdx);
+void appendToLocationIdx(int i, int j, int letIdx);
 
 int bSize;
 int wordSize;
+int **locationIdx;
 
 // Main function, DO NOT MODIFY
 int main(int argc, char **argv)
@@ -54,9 +54,7 @@ int main(int argc, char **argv)
 
     printf("Enter the word to search: ");
     scanf("%s", word);
-
-    wordSize = sizeOfWord(word);
-    printf("Size of Word: %d\n", wordSize);
+    wordSize = strlen(word);
 
     // Print out original puzzle grid
     printf("\nPrinting puzzle before search:\n");
@@ -76,15 +74,6 @@ int main(int argc, char **argv)
     return 0;
 }
 
-int sizeOfWord(char *word) {
-    int i = 0;
-    int size = 0;
-    while (*(word + i) != '\0') {
-        size++;
-        i++;
-    }
-    return size;
-}
 
 void printPuzzle(char **arr)
 {
@@ -103,6 +92,89 @@ void printPuzzle(char **arr)
     }
 }
 
+void appendToLocationIdx(int i, int j, int letIdx) {
+    if (*(*(locationIdx + i) + j) == 0){
+        *(*(locationIdx+i)+j) = letIdx + 1;
+    } else {
+        int temp = (*(*(locationIdx + i) + j) * 10) + letIdx + 1;
+        int num = 0;
+        while (temp > 0) {
+            num = (num * 10) + (temp % 10);
+            temp /= 10;
+        }
+        *(*(locationIdx + i) + j) = num;
+    }
+}
+
+bool checkAround(char **arr, char* word, int i, int j, int letIdx) {
+    // recursive function
+    if (*(*(arr + i) + j) == *(word + letIdx)){
+        bool temp = false;
+        if ((word + letIdx) == (word + wordSize - 1)) {
+            appendToLocationIdx(i, j, letIdx);
+            return true;
+        }
+        if (i - 1 >= 0 &&  j - 1 >= 0) {
+            temp = checkAround(arr, word, i - 1, j - 1, letIdx + 1);
+            if (temp) {
+                appendToLocationIdx(i, j, letIdx);
+                return true;
+            }
+        }
+        if (i - 1 >= 0 && j <= bSize - 1) {
+            temp = checkAround(arr, word, i - 1, j, letIdx + 1);
+            if (temp) {
+                appendToLocationIdx(i, j, letIdx);
+                return true;
+            }
+        }
+        if (i - 1 >= 0 && j + 1 <= bSize - 1) {
+            temp = checkAround(arr, word, i - 1, j + 1, letIdx + 1);
+            if (temp) {
+                appendToLocationIdx(i, j, letIdx);
+                return true;
+            }
+        }
+        if (i <= bSize - 1 && j - 1 >= 0) {
+            temp = checkAround(arr, word, i, j - 1, letIdx + 1);
+            if (temp) {
+                appendToLocationIdx(i, j, letIdx);
+                return true;
+            }
+        }
+        if (i <= bSize -1 && j + 1 <= bSize) {
+            temp = checkAround(arr, word, i, j + 1, letIdx + 1);
+            if (temp) {
+                appendToLocationIdx(i, j, letIdx);
+                return true;
+            }
+        }
+        if (i + 1 <= bSize - 1 && j - 1 >= 0) {
+            temp = checkAround(arr, word, i + 1, j - 1, letIdx + 1);
+            if (temp) {
+                appendToLocationIdx(i, j, letIdx);
+                return true;
+            }
+        }
+        if (i + 1 <= bSize -1 && j <= bSize - 1) {
+            temp = checkAround(arr, word, i + 1, j, letIdx + 1);
+            if (temp) {
+                appendToLocationIdx(i, j, letIdx);
+                return true;
+            }
+        }
+        if (i + 1 <= bSize - 1 && j + 1 <= bSize) {
+            temp = checkAround(arr, word, i + 1, j + 1, letIdx + 1);
+            if (temp) {
+                appendToLocationIdx(i, j, letIdx);
+                return true;
+            }
+        }
+    }
+    
+    return false;
+}
+
 void searchPuzzle(char **arr, char *word)
 {
     // This function checks if arr contains the search word. If the
@@ -110,8 +182,8 @@ void searchPuzzle(char **arr, char *word)
     // as shown in the sample runs. If not found, it will print a
     // different message as shown in the sample runs.
     // Your implementation here...
-    int wordSize = sizeof(word);
-    int x;
+    int x, y;
+    // make word capitalized
     for (x = 0; x < wordSize; x++)
     {
         if ((int)*(word + x) >= 'a' && (int)*(word + x) <= 'z') {
@@ -119,14 +191,44 @@ void searchPuzzle(char **arr, char *word)
         }
     }
 
-    // make double for loop to inteate throuhgh array then make recursice function to get around the area.
-    int i, j;
-    for (i = 0; i < bSize; i++) {
-        for (j = 0; j < bSize; j++) {
+    locationIdx = (int **)malloc(bSize * sizeof(int *));
 
+    for (x = 0; x < bSize; x++) {
+        *(locationIdx + x) = (int *)malloc(bSize * sizeof(int *));
+        for(y = 0; y < bSize; y++) {
+            *(*(locationIdx + x) + y) = 0;
         }
     }
 
+    // make double for loop to inteate throuhgh array then make recursice function to get around the area.
+    bool flag = false;
+    int i, j;
+    for (i = 0; i < bSize; i++) {
+        for (j = 0; j < bSize; j++) {
+            flag = checkAround(arr, word, i, j, 0);
+            if (flag) break;
+        }
+        if (flag) break;
+    }
+    // print out solution if any
+    if (flag) {
+        printf("Word found\n");
+        for (i = 0; i < bSize; i++)
+        {
+            for (j = 0; j < bSize; j++)
+            {
+                printf("%d\t", *(*(locationIdx + i) + j));
+            }
+            printf("\n");
+        }
+    } else {
+        printf("Word not found!\n");
+    }
+
+    for(i = 0; i < bSize; i++) {
+        free(*(locationIdx + i));
+    }
+    free(locationIdx);
 }
 
 
