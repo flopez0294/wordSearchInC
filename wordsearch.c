@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include <math.h>
 
 // Declarations of the two functions you will implement
 // Feel free to declare any helper functions or global variables
@@ -93,17 +94,13 @@ void printPuzzle(char **arr)
 }
 
 void appendToLocationIdx(int i, int j, int letIdx) {
-    if (*(*(locationIdx + i) + j) == 0){
-        *(*(locationIdx+i)+j) = letIdx + 1;
-    } else {
-        int temp = (*(*(locationIdx + i) + j) * 10) + letIdx + 1;
-        int num = 0;
-        while (temp > 0) {
-            num = (num * 10) + (temp % 10);
-            temp /= 10;
-        }
-        *(*(locationIdx + i) + j) = num;
+    int temp = *(*(locationIdx + i) + j);
+    int iter = 0;
+    while (temp > 0) {
+        iter++;
+        temp /= 10;
     }
+    *(*(locationIdx+i)+j) = *(*(locationIdx + i) + j) + ((letIdx + 1) * pow(10, iter));
 }
 
 bool checkAround(char **arr, char* word, int i, int j, int letIdx) {
