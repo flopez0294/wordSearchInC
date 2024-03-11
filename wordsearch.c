@@ -199,16 +199,19 @@ void searchPuzzle(char **arr, char *word)
 
     // make double for loop to inteate throuhgh array then make recursice function to get around the area.
     bool flag = false;
+    bool ans = false;
     int i, j;
     for (i = 0; i < bSize; i++) {
         for (j = 0; j < bSize; j++) {
             flag = checkAround(arr, word, i, j, 0);
-            if (flag) break;
+            if (flag) {
+                 // ans = true;
+                break;
         }
         if (flag) break;
     }
     // print out solution if any
-    if (flag) {
+    if (flag /*ans*/) {
         printf("Word found\n");
         for (i = 0; i < bSize; i++)
         {
