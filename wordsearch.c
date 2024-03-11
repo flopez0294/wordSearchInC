@@ -207,6 +207,7 @@ void searchPuzzle(char **arr, char *word)
             if (flag) {
                  // ans = true;
                 break;
+            }
         }
         if (flag) break;
     }
