@@ -205,14 +205,14 @@ void searchPuzzle(char **arr, char *word)
         for (j = 0; j < bSize; j++) {
             flag = checkAround(arr, word, i, j, 0);
             if (flag) {
-                 // ans = true;
-                break;
+                ans = true;
+                //break;
             }
         }
-        if (flag) break;
+        //if (flag) break;
     }
     // print out solution if any
-    if (flag /*ans*/) {
+    if (/*flag*/ans) {
         printf("Word found\n");
         for (i = 0; i < bSize; i++)
         {
